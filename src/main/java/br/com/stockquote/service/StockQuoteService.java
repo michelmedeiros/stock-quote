@@ -7,4 +7,5 @@ public interface StockQuoteService {
     Stock getStockByTicketName(String ticket);
     Iterable<Stock> searchAll();
     Stock save(StockDTO stockQuote);
+    List<Stock> statusInvestStockQuote(String ticket);
 }

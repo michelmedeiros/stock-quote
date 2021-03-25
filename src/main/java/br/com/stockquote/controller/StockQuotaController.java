@@ -8,6 +8,8 @@ import br.com.stockquote.service.YahooFinancialQuoteService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/stocks")
 @AllArgsConstructor
@@ -34,6 +36,11 @@ public class StockQuotaController {
     @GetMapping("yahoo/{ticket}")
     public Stock getStock(@PathVariable String ticket) {
         return yahooFinancialQuoteService.getYahooFinanceStockQuote(ticket);
+    }
+
+    @GetMapping("statusInvest/{ticket}")
+    public List<Stock> getStocks(@PathVariable String ticket) {
+        return stockQuoteService.statusInvestStockQuote(ticket);
     }
 
 }

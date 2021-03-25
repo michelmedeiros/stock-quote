@@ -25,10 +25,16 @@ public class YahooFinancialQuoteServiceImpl implements YahooFinancialQuoteServic
     @Override
     public Stock getYahooFinanceStockQuote(String ticket) {
         try {
+            log.info("Starting find stock in Yahoo Finance by ticker {}", ticket);
             final yahoofinance.Stock stock = YahooFinance.get(StockUtils.getFormattedTicket(ticket));
+            log.info("Finished find stock in Yahoo Finance");
+
             if(Objects.nonNull(stock)) {
                 final Stock stockQuote = StockConverter.convertEntity(stock);
-                return this.save(stockQuote);
+                log.info("Starting save stock in ES");
+                Stock stockSaved = this.save(stockQuote);
+                log.info("Finished save stock in ES");
+                return stockSaved;
             } else {
                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
             }
@@ -39,7 +45,9 @@ public class YahooFinancialQuoteServiceImpl implements YahooFinancialQuoteServic
     }
 
     private Stock save(Stock stockQuote) {
+        log.info("Starting find stock in ES");
         final Stock stockFound = getStock(stockQuote.getTicket().toLowerCase());
+        log.info("Finished find stock in ES");
         if(Objects.nonNull(stockFound)) {
             return stockQuoteRepository.save(stockQuote.withId(stockFound.getId()));
         }
