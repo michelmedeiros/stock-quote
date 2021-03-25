@@ -1,6 +1,7 @@
 package br.com.stockquote.controller;
 
 import br.com.stockquote.domain.Stock;
+import br.com.stockquote.domain.StockStatistics;
 import br.com.stockquote.integration.dto.StockDTO;
 import br.com.stockquote.service.StockQuoteService;
 import br.com.stockquote.service.YahooFinancialQuoteService;
