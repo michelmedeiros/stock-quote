@@ -1,5 +1,6 @@
 package br.com.stockquote.integration;
 
+import br.com.stockquote.dto.StockStatisticsDTO;
 import br.com.stockquote.integration.dto.StockDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
@@ -13,4 +14,7 @@ import java.util.List;
 public interface StatusInvestClient {
     @GetMapping("/home/mainsearchquery")
     List<StockDTO> getStock(@RequestParam("q") String query);
+
+    @GetMapping("/category/advancedsearchresult")
+    List<StockStatisticsDTO> getStockStatistics(@RequestParam("search") String query, @RequestParam("categoryType") int ategoryType);
 }

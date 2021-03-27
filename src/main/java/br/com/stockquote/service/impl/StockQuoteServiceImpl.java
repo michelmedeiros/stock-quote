@@ -23,30 +23,6 @@ public class StockQuoteServiceImpl implements StockQuoteService {
 
     private final StockQuoteRepository stockQuoteRepository;
 
-    private final StatusInvestClient statusInvestClient;
-
-    @Override
-    public List<Stock> statusInvestStockQuote(String ticket) {
-        try {
-            final List<StockDTO> stocks = statusInvestClient.getStock(ticket);
-            return stocks.stream().map(this::convertEntity)
-                    .collect(Collectors.toList());
-        } catch (Exception ex) {
-            log.error("Error to call Status Invest", ex);
-        }
-        return null;
-    }
-
-    private Stock convertEntity(StockDTO stock) {
-        return Stock.builder()
-                .quote(StockQuote.builder()
-                        .price(new BigDecimal(stock.getPrice().replaceAll(",", ".")))
-                        .build())
-                .ticket(stock.getCode())
-                .build();
-    }
-
-
     @Override
     public Iterable<Stock> searchAll() {
         return stockQuoteRepository.findAll();

@@ -1,14 +1,10 @@
 package br.com.stockquote.controller;
 
 import br.com.stockquote.domain.Stock;
-import br.com.stockquote.domain.StockStatistics;
 import br.com.stockquote.integration.dto.StockDTO;
 import br.com.stockquote.service.StockQuoteService;
-import br.com.stockquote.service.YahooFinancialQuoteService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/stocks")
@@ -16,7 +12,6 @@ import java.util.List;
 public class StockQuotaController {
 
     private final StockQuoteService stockQuoteService;
-    private final YahooFinancialQuoteService yahooFinancialQuoteService;
 
     @PostMapping()
     public Stock createStockQuote(@RequestBody StockDTO stockQuote) {
@@ -33,14 +28,5 @@ public class StockQuotaController {
         return stockQuoteService.getStockByTicketName(ticket);
     }
 
-    @GetMapping("yahoo/{ticket}")
-    public Stock getStock(@PathVariable String ticket) {
-        return yahooFinancialQuoteService.getYahooFinanceStockQuote(ticket);
-    }
-
-    @GetMapping("statusInvest/{ticket}")
-    public List<Stock> getStocks(@PathVariable String ticket) {
-        return stockQuoteService.statusInvestStockQuote(ticket);
-    }
 
 }

@@ -5,6 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface StockStatisticsReactiveRepository extends CrudRepository<StockStatistics, String> {
+public interface StockStatisticsRepository extends CrudRepository<StockStatistics, String> {
     StockStatistics findFirstByTicker(String ticker);
 }
